@@ -4,10 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>A Message For You</title>
+
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: linear-gradient(to right, #1e1e2f, #2c2c54);
+      background: linear-gradient(-45deg, #1e1e2f, #2c2c54, #1b1b3a, #2d2d5f);
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease infinite;
       color: white;
       display: flex;
       justify-content: center;
@@ -16,52 +19,115 @@
       margin: 0;
       text-align: center;
     }
+
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
     .card {
-      background: rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.08);
       padding: 30px;
       border-radius: 15px;
-      max-width: 500px;
+      max-width: 520px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1s ease;
     }
+
+    .card.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     h1 {
       margin-bottom: 20px;
     }
+
     p {
       line-height: 1.6;
       font-size: 16px;
+      margin: 10px 0;
+      min-height: 20px;
     }
+
     .footer {
       margin-top: 20px;
       font-size: 14px;
-      opacity: 0.7;
+      opacity: 0.8;
+    }
+
+    .start-btn {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      background: white;
+      color: black;
+      margin-bottom: 20px;
     }
   </style>
 </head>
 <body>
-  <div class="card">
+
+  <!-- Soft background music -->
+  <audio id="bgMusic" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/10/16/audio_7b6f4b1f5a.mp3?filename=soft-piano-ambient-11455.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="card" id="card">
+    <button class="start-btn" onclick="startMessage()">Tap to open</button>
+
     <h1>Hey...</h1>
-    <p>
-      I didn’t expect to hear from you again, especially after everything and the time that has passed.
-      When you called, I didn’t really know what to feel at first. It caught me off guard.
-    </p>
-    <p>
-      I won’t lie, things haven’t been the same since you left. I’ve had time to think, to grow, and to understand things from a different perspective.
-      But I’ve also learned how to stand on my own again.
-    </p>
-    <p>
-      Hearing from you reminded me of what we had — the good moments, the lessons, everything.
-      And even though things didn’t work out, I don’t hold anything against you.
-    </p>
-    <p>
-      I just hope you’re doing okay. Really.
-    </p>
-    <p>
-      As for me, I’m still figuring things out, one step at a time.
-    </p>
-    <p>
-      Take care of yourself.
-    </p>
-    <div class="footer">— From someone who once cared deeply</div>
+
+    <p id="p1"></p>
+    <p id="p2"></p>
+    <p id="p3"></p>
+    <p id="p4"></p>
+    <p id="p5"></p>
+
+    <div class="footer">— From hofist the tech dev</div>
   </div>
+
+  <script>
+    const lines = [
+      "I won’t lie, things haven’t been the same since you left. My nights are just crazy everyday.",
+      "Hearing from you reminded me of our good vibes. And I am happy you called..",
+      "I just hope you’re doing okay. Really.",
+      "Say hi to vivi..",
+      "Take care of yourself. I miss you"
+    ];
+
+    function typeText(element, text, speed = 40) {
+      let i = 0;
+      function typing() {
+        if (i < text.length) {
+          element.innerHTML += text.charAt(i);
+          i++;
+          setTimeout(typing, speed);
+        }
+      }
+      typing();
+    }
+
+    function startMessage() {
+      document.getElementById("card").classList.add("show");
+      document.querySelector(".start-btn").style.display = "none";
+
+      document.getElementById("bgMusic").play();
+
+      typeText(document.getElementById("p1"), lines[0]);
+      setTimeout(() => typeText(document.getElementById("p2"), lines[1]), 2000);
+      setTimeout(() => typeText(document.getElementById("p3"), lines[2]), 4000);
+      setTimeout(() => typeText(document.getElementById("p4"), lines[3]), 6000);
+      setTimeout(() => typeText(document.getElementById("p5"), lines[4]), 8000);
+    }
+  </script>
+
 </body>
 </html>
+
