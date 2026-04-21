@@ -97,45 +97,44 @@
   </div>
 
   <script>
-    const lines = [
-      "I won’t lie, things haven’t been the same since you left. My nights are just crazy everyday.",
-      "Hearing from you reminded me of our good vibes. And I am happy you called..",
-      "I just hope you’re doing okay. Really.",
-      "Say hi to vivi..",
-      "Take care of yourself. I miss you"
-    ];
+  const lines = [
+    "I won’t lie, things haven’t been the same since you left. My nights are just crazy everyday.",
+    "Hearing from you reminded me of our good vibes. And I am happy you called..",
+    "I just hope you’re doing okay. Really.",
+    "Say hi to vivi..",
+    "Take care of yourself. I miss you"
+  ];
 
-    function typeText(element, text, speed = 35) {
-      let i = 0;
-      element.innerHTML = "";
+  function typeText(element, text, speed = 60) {
+    let i = 0;
+    element.innerHTML = "";
 
-      function typing() {
-        if (i < text.length) {
-          element.innerHTML += text[i];
-          i++;
-          setTimeout(typing, speed);
-        }
+    function typing() {
+      if (i < text.length) {
+        element.innerHTML += text[i];
+        i++;
+        setTimeout(typing, speed);
       }
-
-      typing();
     }
 
-    function startMessage() {
-      document.getElementById("card").classList.add("show");
-      document.querySelector(".start-btn").style.display = "none";
+    typing();
+  }
 
-      const audio = document.getElementById("bgMusic");
-      audio.play().catch(() => {
-        console.log("Audio blocked by browser");
-      });
+  function startMessage() {
+    document.getElementById("card").classList.add("show");
+    document.querySelector(".start-btn").style.display = "none";
 
-      setTimeout(() => typeText(document.getElementById("p1"), lines[0]), 500);
-      setTimeout(() => typeText(document.getElementById("p2"), lines[1]), 2500);
-      setTimeout(() => typeText(document.getElementById("p3"), lines[2]), 4500);
-      setTimeout(() => typeText(document.getElementById("p4"), lines[3]), 6500);
-      setTimeout(() => typeText(document.getElementById("p5"), lines[4]), 8500);
-    }
-  </script>
+    const audio = document.getElementById("bgMusic");
+    audio.play().catch(() => {});
+
+    // ⬇️ slower spacing between lines
+    setTimeout(() => typeText(document.getElementById("p1"), lines[0]), 800);
+    setTimeout(() => typeText(document.getElementById("p2"), lines[1]), 4000);
+    setTimeout(() => typeText(document.getElementById("p3"), lines[2]), 7500);
+    setTimeout(() => typeText(document.getElementById("p4"), lines[3]), 10500);
+    setTimeout(() => typeText(document.getElementById("p5"), lines[4]), 13500);
+  }
+</script>
 
 </body>
 </html>
