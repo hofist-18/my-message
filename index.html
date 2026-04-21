@@ -35,7 +35,7 @@
       backdrop-filter: blur(10px);
       opacity: 0;
       transform: translateY(20px);
-      transition: all 1s ease;
+      transition: 1s ease;
     }
 
     .card.show {
@@ -61,7 +61,7 @@
     }
 
     .start-btn {
-      padding: 12px 20px;
+      padding: 12px 18px;
       border: none;
       border-radius: 10px;
       cursor: pointer;
@@ -72,14 +72,16 @@
     }
   </style>
 </head>
+
 <body>
 
-  <!-- Soft background music -->
+  <!-- Background music (safe, won’t break page) -->
   <audio id="bgMusic" loop>
     <source src="https://cdn.pixabay.com/download/audio/2022/10/16/audio_7b6f4b1f5a.mp3?filename=soft-piano-ambient-11455.mp3" type="audio/mpeg">
   </audio>
 
   <div class="card" id="card">
+
     <button class="start-btn" onclick="startMessage()">Tap to open</button>
 
     <h1>Hey...</h1>
@@ -91,6 +93,7 @@
     <p id="p5"></p>
 
     <div class="footer">— From hofist the tech dev</div>
+
   </div>
 
   <script>
@@ -102,15 +105,18 @@
       "Take care of yourself. I miss you"
     ];
 
-    function typeText(element, text, speed = 40) {
+    function typeText(element, text, speed = 35) {
       let i = 0;
+      element.innerHTML = "";
+
       function typing() {
         if (i < text.length) {
-          element.innerHTML += text.charAt(i);
+          element.innerHTML += text[i];
           i++;
           setTimeout(typing, speed);
         }
       }
+
       typing();
     }
 
@@ -118,13 +124,16 @@
       document.getElementById("card").classList.add("show");
       document.querySelector(".start-btn").style.display = "none";
 
-      document.getElementById("bgMusic").play();
+      const audio = document.getElementById("bgMusic");
+      audio.play().catch(() => {
+        console.log("Audio blocked by browser");
+      });
 
-      typeText(document.getElementById("p1"), lines[0]);
-      setTimeout(() => typeText(document.getElementById("p2"), lines[1]), 2000);
-      setTimeout(() => typeText(document.getElementById("p3"), lines[2]), 4000);
-      setTimeout(() => typeText(document.getElementById("p4"), lines[3]), 6000);
-      setTimeout(() => typeText(document.getElementById("p5"), lines[4]), 8000);
+      setTimeout(() => typeText(document.getElementById("p1"), lines[0]), 500);
+      setTimeout(() => typeText(document.getElementById("p2"), lines[1]), 2500);
+      setTimeout(() => typeText(document.getElementById("p3"), lines[2]), 4500);
+      setTimeout(() => typeText(document.getElementById("p4"), lines[3]), 6500);
+      setTimeout(() => typeText(document.getElementById("p5"), lines[4]), 8500);
     }
   </script>
 
